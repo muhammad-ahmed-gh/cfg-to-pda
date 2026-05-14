@@ -75,17 +75,17 @@ def cfg_to_pda(cfg):
         result[f"q{num_states - 1}"] = []
 
     def build_pda():
-        for state in list(cfg.keys()):
-            rules = cfg[state]
+        for vars in list(cfg.keys()):
+            rules = cfg[vars]
             for rule in rules:
                 if len(rule) == 1:
-                    transition = f"e,{state},{rule}"
+                    transition = f"e,{vars},{rule}"
                     add_transition(src="q2", to="q2", text=transition)
 
                     if(rule.islower()):
                         terminals.add(rule)
                 else:
-                    first_transition = f"e,{state},{rule[-1]}"
+                    first_transition = f"e,{vars},{rule[-1]}"
                     add_transition("q2", new_state(), first_transition)
 
                     for i in range(-2, -1 * len(rule), -1):
