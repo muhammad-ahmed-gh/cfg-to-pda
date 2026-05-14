@@ -1,28 +1,24 @@
 def validate(data):
-    """
-    Validates the consistency of the provided CFG data.
-    Returns (True, None) if valid, or (False, error_message) if invalid.
-    """
-    variables = set(data['variables'])
-    terminals = set(data['terminals'])
-    start_var = data['start_variable']
-    productions = data['productions']
+    # 1. Check if the dictionary is empty
+    if not data:
+        return False, "Validation Error: No variables were defined."
 
-    # 1. Check if Start Variable is valid
-    if start_var not in variables:
-        return False, f"Validation Error: Start variable '{start_var}' is not in the list of variables."
-
-    # 2. Check if all variables have production entries (even if empty)
-    for var in variables:
-        if var not in productions:
-            return False, f"Validation Error: Variable '{var}' has no defined production rules."
-
-    # 3. Check every symbol in every production rule
-    for var, rules in productions.items():
+    # 2. Identify the Start Variable (the first key entered)
+    variables = list(data.keys())
+    start_var = variables[0]
+    
+    # 3. Validate each rule
+    for var, rules in data.items():
         for rule in rules:
-            for symbol in rule:
-                # Check if symbol is a terminal, a variable, or 'epsilon'
-                if symbol not in variables and symbol not in terminals and symbol.lower() != 'epsilon':
-                    return False, f"Validation Error: Symbol '{symbol}' in {var} -> {' '.join(rule)} is undefined."
+            # Skip empty rules or explicit epsilon
+            if not rule or rule.lower() == 'epsilon':
+                continue
+            
+            # Check every character in the rule string
+            for char in rule:
+                # If the character is not a defined variable and not lowercase/digit (terminal)
+                # This is a basic check to ensure you didn't typo a Variable name
+                if char.isupper() and char not in data:
+                    return False, f"Validation Error: Variable '{char}' used in rule '{var}->{rule}' is not defined."
 
-    return True, "CFG is valid and ready for conversion."
+    return True, f"Valid CFG. Start Variable is '{start_var}'."

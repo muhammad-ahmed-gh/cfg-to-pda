@@ -1,0 +1,28 @@
+// Pushdown Automaton
+strict digraph {
+	rankdir=LR
+	concentrate=true
+	nodesep=1.0
+	margin=0.5
+	q0 [shape=circle]
+	q1 [shape=circle]
+	q2 [shape=circle]
+	q3 [shape=circle]
+	q4 [shape=circle]
+	q5 [shape=circle]
+	q6 [shape=doublecircle]
+	start [label="" shape=none width=0]
+	start -> q0
+	q0 -> q1 [label="ε, ε → $"]
+	q1 -> q2 [label="ε, ε → S"]
+	q2 -> q3 [label="ε, S → b"]
+	q2 -> q2 [label="ε, S → b
+ε, T → b
+a, a → ε
+b, b → ε"]
+	q2 -> q5 [label="ε, T → b"]
+	q2 -> q6 [label="ε, $ → ε"]
+	q3 -> q4 [label="ε, ε → T"]
+	q4 -> q2 [label="ε, ε → a"]
+	q5 -> q2 [label="ε, ε → T"]
+}
