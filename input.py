@@ -1,19 +1,22 @@
 def get_input():
     # 1. Get Variables (V)
-    v_input = input("Enter Variables separated by spaces (e.g., S A B): ").upper()  
-    variables = v_input.split()  # Split the input string into a list of variables
+    v_input = input("Enter Variables separated by spaces (e.g., S A B): ").upper()
+    variables = v_input.split()
 
     # 2. Get Terminals (Sigma)
-    t_input = input("Enter Terminals separated by spaces (e.g., a b 0 1): ")
-    terminals = t_input.split()
+    # Updated instructions to mention 'e'
+    t_input = input("Enter Terminals separated by spaces (use 'e' for epsilon, e.g., a b 0 1 e): ")
+    # Automatically convert 'e' to 'epsilon' in the terminals list
+    terminals = ['epsilon' if t == 'e' else t for t in t_input.split()]
 
     # 3. Get Start Variable (S)
-    start_variable = input("Enter the Start Variable: ").strip() 
+    start_variable = input("Enter the Start Variable: ").strip()
 
     # 4. Get Productions (R)
     print("\nEnter production rules.")
     print("Format: Variable -> derivation1 | derivation2")
-    print("Use spaces between symbols (e.g., S -> a S b | epsilon).")
+    # Updated instructions to show 'e' instead of 'epsilon'
+    print("Use spaces between symbols and 'e' for epsilon (e.g., S -> a S b | e).") 
     print("Type 'done' when finished.")
 
     # Initialize the dictionary to hold productions for each variable
@@ -40,6 +43,10 @@ def get_input():
                 for derivation in derivations:
                     # Split each derivation into individual symbols
                     symbols = derivation.split()
+                    
+                    # --- NEW LOGIC: Convert 'e' to 'epsilon' ---
+                    symbols = ['epsilon' if sym == 'e' else sym for sym in symbols]
+                    
                     if symbols:
                         productions[left_side].append(symbols)
             else:
