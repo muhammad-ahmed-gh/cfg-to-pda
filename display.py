@@ -1,0 +1,2 @@
+def display(data):
+  pass
