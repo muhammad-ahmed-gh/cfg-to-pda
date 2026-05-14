@@ -116,6 +116,12 @@ def cfg_to_pda(cfg):
 #     "B": ["cB", "e"]
 # }
 
+# test_case3 = {
+#     "S": ["AB"],
+#     "A": ["aA", "e"],
+#     "B": ["bB", "e"]
+# }
+
 # print(json.dumps(
 #     cfg_to_pda(test_case2),
 #     indent=2
