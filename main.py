@@ -7,3 +7,5 @@ data = get_input()
 
 if validate(data):
     display(cfg_to_pda(data))
+else:    
+    print("Invalid CFG. Please check your input and try again.")
