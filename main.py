@@ -5,7 +5,9 @@ from display import display
 
 data = get_input()
 
-if validate(data):
+is_valid, message = validate(data)
+if is_valid:
+    print(message)
     display(cfg_to_pda(data))
-else:    
-    print("Invalid CFG. Please check your input and try again.")
+else:
+    print(message)
